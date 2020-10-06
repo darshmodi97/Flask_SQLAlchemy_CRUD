@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head><title>Home</title></head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <body>
+   <div class="container">
+      <div>
+      <h3 style="text-align:center;">
+         <a href = "{{ url_for('list_employees') }}">Employee Management System</a>
+      </h3>
+         </div>
+
+      <hr/>
+      {%- for message in get_flashed_messages() %}
+        <div class="alert alert-success">
+            <strong>Success!</strong> {{ message }}.
+        </div>
+      {%- endfor %}
+
+      <div>
+         <h3>Employees List<a href="add_employee" style="float:right;"><button type="button" class="btn btn-primary btn-sm">Add New Employee</button></a></h3>
+       </div>
+         <table class="table">
+         <thead class="thead-dark">
+            <tr>
+               <th scope="col"> Index</th>
+               <th scope="col">ID</th>
+               <th scope="col">Name</th>
+               <th scope="col">Salary</th>
+               <th scope="col">Age</th>
+               <th scope="col">Pin</th>
+               <th scope="col" colspan="2">Edit / Delete</th>
+            </tr>
+         </thead>
+
+         <tbody>
+            {% for employee in Employees %}
+               <tr>
+                  <td>{{ loop.index }}</td>
+                  <td>{{ employee.id }}</td>
+                  <td>{{ employee.name }}</td>
+                  <td>{{ employee.salary }}</td>
+                  <td>{{ employee.age }}</td>
+                  <td>{{ employee.pin }}</td>
+                  <td><a href="/edit/{{ employee.id }}"><button type="button" class="btn btn-outline-primary">Edit</button></a></td>
+                  <td><a href="/delete?id={{ employee.id }}"> <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModalCenter">Delete</button></a></td>
+               </tr>
+                    <!-- Modal -->
+            {% endfor %}
+
+         </tbody>
+      </table>
+      </div>
+   </body>
+</html>
